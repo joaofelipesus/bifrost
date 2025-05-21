@@ -35,8 +35,8 @@ class Docker::DockerWrapperTest < ActiveSupport::TestCase
         "-e", "RAILS_ENV=production",
         "-e", "DATABASE_URL=postgresql://#{@db_user}:#{@db_password}@postgres:5432/#{@project.db_name}",
         "-e", "SECRET_KEY_BASE=#{@project.secret_key}",
-        "-e", "ACCESS_KEY=ABC",
         "-e", "KEY_ID=AAA",
+        "-e", "ACCESS_KEY=ABC",
         "-e", "BUCKET_NAME=CBA",
         "#{@project.docker_image_name}:latest",
         "bash", "-c", "bundle && bundle exec rails db:create db:migrate && bundle exec rails assets:precompile && bundle exec rails s"
