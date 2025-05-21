@@ -1,0 +1,70 @@
+# NOTE: only only services used by hosted services.
+services:
+  # TODO: add app service
+  # app:
+  #   depends_on:
+  #     - "postgres"
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   command: bash -c "rm -f /usr/src/app/tmp/pids/server.pid && (bundle check || bundle install) && ./bin/dev"
+  #   stdin_open: true
+  #   tty: true
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - .:/usr/src/app
+  #     - gems:/gems
+  #     - /var/run/docker.sock:/var/run/docker.sock  # Add this line to bind mount the Docker socket
+  #     - cloned_repositories:/usr/src/cloned_repositories # volume used to share repositories
+  #     - ssl:/usr/src/ssl
+
+  postgres:
+    image: postgres:16
+    env_file:
+      - .env  # config postgres user and password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - bifrost_network
+
+  metabase:
+    image: metabase/metabase:v0.41.6
+    env_file:
+      - .env
+    ports:
+      - "3100:3000"
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: postgres
+      MB_DB_PORT: 5432
+      MB_DB_HOST: postgres
+      MB_PASSWORD_COMPLEXITY: 'weak'
+      MB_PASSWORD_LENGTH: 0
+    depends_on:
+      - postgres
+    networks:
+      - bifrost_network
+
+# NOTE: the network is used so the web apps containers has access to the postgres container.
+networks:
+  bifrost_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  # gems:
+  # cloned_repositories:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: cloned_repositories/freelance-tracker
+  # ssl:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: config/ssl

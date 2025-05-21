@@ -1,0 +1,33 @@
+<div class="w-full">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <%= turbo_stream_from 'project_status_channel' %>
+
+    <header class="mb-4 flex items-center justify-between">
+      <h2 class="font-bold text-4xl"><%= @project.name %></h2>
+      <%= render partial: 'projects/components/status', locals: { project: @project } %>
+    </header>
+
+    <div clas="mb-4">
+      <%= render partial: "projects/components/project_data_card", locals: { project: @project } %>
+    </div>
+
+    <div class="mb-4">
+      <%= render partial: "projects/components/env_variables", locals: { project: @project }%>
+    </div>
+
+    <div class="mb-4">
+      <%= render partial: 'projects/components/logs', locals: { project: @project } %>
+    </div>
+
+
+    <%= link_to "Edit this project", edit_project_path(@project), class: "btn-warning" %>
+    <%= link_to "Back to projects", projects_path, class: "btn-primary ml-2" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this project", @project, method: :delete, class: "btn-danger" %>
+    </div>
+  </div>
+</div>

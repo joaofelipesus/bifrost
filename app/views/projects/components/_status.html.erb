@@ -1,0 +1,58 @@
+<section>
+  <%= turbo_frame_tag(dom_id(project)) do %>
+    <% project_running_status = project.web_app_status %>
+
+    <% if project_running_status == Project::DOWN %>
+      <div class="flex space-x-2">
+        <%=
+          button_to "Start container",
+          start_project_path(project),
+          method: :patch,
+          form_class: "inline",
+          class: "btn-sm-success"
+        %>
+
+        <%=
+          button_to "Deploy new version",
+          deploy_new_version_project_path(project),
+          method: :post,
+          class: "btn-sm-primary"
+        %>
+      </div>
+    <% elsif project_running_status == Project::STARTING %>
+      <button disabled class="btn-sm-secondary">
+        <%= render "layouts/components/loading" %> Starting...
+      </button>
+    <% elsif project_running_status == Project::RUNNING %>
+      <div class="flex flex-col space-y-2">
+        <div class="flex space-x-2 items-center">
+          <%=
+            button_to "Deploy new version",
+            deploy_new_version_project_path(project),
+            method: :post,
+            class: "btn-sm-primary"
+          %>
+
+          <%=
+            link_to "Open app in new tab",
+            project.access_url,
+            target: "_blank",
+            class: "btn-sm-teal"
+          %>
+
+          <%=
+            button_to "Stop project",
+            stop_project_path(project),
+            method: :patch,
+            form_class: "inline",
+            class: "btn-sm-danger"
+          %>
+        </div>
+
+        <h4 class="whitespace-nowrap">
+          <pre class="bg-gray-800 text-gray-200 p-2 rounded">Attach to container: <code class="text-green-400"><%= project.docker_attach_command %></code></pre>
+        </h4>
+      </div>
+    <% end %>
+  <% end %>
+</section>

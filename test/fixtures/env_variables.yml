@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+freelance_tracker_bucket_key_id:
+  project_id: <%= ActiveRecord::FixtureSet.identify(:freelance_tracker) %>
+  name: KEY_ID
+  value: AAA
+
+freelance_tracker_bucket_access_key:
+  project_id: <%= ActiveRecord::FixtureSet.identify(:freelance_tracker) %>
+  name: ACCESS_KEY
+  value: ABC
+
+freelance_tracker_bucket_name:
+  project_id: <%= ActiveRecord::FixtureSet.identify(:freelance_tracker) %>
+  name: BUCKET_NAME
+  value: CBA

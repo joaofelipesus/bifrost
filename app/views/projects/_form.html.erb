@@ -1,0 +1,36 @@
+<%= form_with(model: project, class: "contents") do |form| %>
+  <% if project.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+        <% project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "input-field" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :github_url %>
+    <%= form.text_field :github_url, class: "input-field" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :server_port %>
+    <%= form.number_field :server_port,
+      min: Project::MIN_SERVER_PORT,
+      max: Project::MAX_SERVER_PORT,
+      class: "input-field"
+    %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "btn-primary" %>
+  </div>
+<% end %>

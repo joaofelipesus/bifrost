@@ -1,0 +1,12 @@
+<% content_for :title, "Editing env variable" %>
+
+<h1>Editing env variable</h1>
+
+<%= render "form", env_variable: @env_variable %>
+
+<br>
+
+<div>
+  <%= link_to "Show this env variable", @env_variable %> |
+  <%= link_to "Back to env variables", env_variables_path %>
+</div>

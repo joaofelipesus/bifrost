@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+
+puts("Start setup bifrost environment.")
+
+print("Inform Github Token: ")
+token = gets.chomp
+
+puts("------------------------------")
+puts("Postgrs setup")
+
+print("  - user: ")
+pg_user = gets.chomp
+print("  - password: ")
+pg_password = gets.chomp
+
+puts "Saving .env file"
+
+File.open(".env", "w") do |file|
+  file.puts("GITHUB_TOKEN=#{token}")
+  file.puts("POSTGRES_USER=#{pg_user}")
+  file.puts("POSTGRES_PASSWORD=#{pg_password}")
+  file.puts("MB_DB_USER=#{pg_user}")
+  file.puts("MB_DB_PASS=#{pg_password}")
+end
+
+puts("------------------------------")
+puts("Generating SSL certificates")
+system("openssl genrsa -out server.key 2048")
+system("openssl req -new -key server.key -out server.csr")
+system("openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt")
+
+puts "Moving certificates to config/ssl"
+
+ssl_dir = "config/ssl"
+FileUtils.mkdir_p(ssl_dir) unless Dir.exist?(ssl_dir)
+FileUtils.mv("server.key", ssl_dir)
+FileUtils.mv("server.csr", ssl_dir)
+FileUtils.mv("server.crt", ssl_dir)
+
+puts "Setup finished."

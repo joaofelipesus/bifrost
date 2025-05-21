@@ -1,0 +1,58 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Projects" %>
+
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="font-bold text-4xl">Projects</h1>
+  </div>
+
+  <table class="">
+    <thead class="">
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Port</th>
+        <th>Access URL</th>
+        <th>Status</th>
+        <th></th>
+        <th class="px-6 py-3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td>
+            <%= project.id %>
+          </td>
+          <td><%= project.name %></td>
+          <td><%= project.server_port %></td>
+          <td><%= project.access_url %></td>
+          <td>
+            <%=
+              render "projects/components/simple_status",
+              locals: { project: project }
+            %>
+          </td>
+          <td>
+            <%=
+              link_to "Open app in new tab",
+              project.access_url,
+              target: "_blank",
+              class: "table-link"
+            %>
+          </td>
+          <td>
+            <%=
+              link_to "Details",
+              project,
+              class: "table-link"
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

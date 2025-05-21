@@ -1,0 +1,35 @@
+<section class="bg-gray-800 shadow-md rounded-lg p-6 mb-6">
+  <h3 class="text-2xl font-semibold text-gray-300 mb-4">Project data</h3>
+
+  <div class="flex flex-wrap">
+    <div class="mb-4 w-1/2">
+      <label class="block text-gray-400 font-bold">Name:</label>
+      <span class="text-gray-100"><%= project.name %></span>
+    </div>
+
+    <div class="mb-4 w-1/2">
+      <label class="block text-gray-400 font-bold">Github url:</label>
+      <span class="text-gray-100"><%= project.github_url %></span>
+    </div>
+
+    <div class="mb-4 w-1/2">
+      <label class="block text-gray-400 font-bold">Clone status:</label>
+      <span class="text-gray-100"><%= project.clone_status %></span>
+    </div>
+
+    <div class="mb-4 w-1/2">
+      <label class="block text-gray-400 font-bold">Server port:</label>
+      <span class="text-gray-100"><%= project.server_port %></span>
+    </div>
+
+    <div class="mb-4 w-1/2">
+      <label class="block text-gray-400 font-bold">Access url:</label>
+      <span class="text-gray-100"><%= project.access_url %></span>
+    </div>
+
+    <div class="mb-4 w-1/2">
+      <label class="block text-gray-400 font-bold">Status:</label>
+      <%= render "projects/components/simple_status", locals: { project: project } %>
+    </div>
+  </div>
+</section>

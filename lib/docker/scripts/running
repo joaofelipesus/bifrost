@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# NOTE: return true if a container is up given a image name, otherwise return false
+
+if [ "$(docker ps --filter "ancestor=$1" --format '{{.Names}}')" ]; then exit 0; else exit -1; fi

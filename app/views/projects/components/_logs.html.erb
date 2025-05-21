@@ -1,0 +1,37 @@
+<section data-controller="projects--logs" class="bg-gray-800 shadow-lg rounded-lg p-6">
+  <h4 class="text-xl font-semibold text-white mb-4">Logs</h4>
+  <div class="flex space-x-4 mb-4">
+    <button
+      data-projects--logs-target="tailLogsButton"
+      data-project-id="<%= project.id %>"
+      data-action="click->projects--logs#tailLogs"
+      class="btn-sm-outline-success"
+    >
+      Follow logs
+    </button>
+
+    <button
+      data-projects--logs-target="stopTailLogsButton"
+      data-action="click->projects--logs#stopTailLogs"
+      class="btn-sm-outline-danger"
+    >
+      Stop follow logs
+    </button>
+
+    <button
+      data-projects--logs-target="clearLogsButton"
+      data-action="click->projects--logs#clearLogs"
+      class="btn-sm-secondary"
+    >
+      Clear logs
+    </button>
+  </div>
+
+  <div
+    data-projects--logs-target="logTail"
+    id="log-tail"
+    class="overflow-y-scroll h-64 bg-gray-600 text-white p-4 font-mono rounded"
+  >
+    <p>No logs available.</p>
+  </div>
+</section>

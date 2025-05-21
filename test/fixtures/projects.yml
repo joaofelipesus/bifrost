@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+freelance_tracker:
+  name: freelance tracker
+  github_url: https://github.com/joaofelipesus/freelance-tracker
+  clone_status: :cloned
+  server_port: 3001
+  secret_key: '123456'

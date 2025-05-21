@@ -1,0 +1,74 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SSL Verification Bypass",
+      "warning_code": 71,
+      "fingerprint": "19c4482b507953ac627d6b571632ff9766e22d72ef6ce0cd76eebcd51c1fd1a3",
+      "check_name": "SSLVerify",
+      "message": "SSL certificate verification was bypassed",
+      "file": "app/models/project.rb",
+      "line": 38,
+      "link": "https://brakemanscanner.org/docs/warning_types/ssl_verification_bypass/",
+      "code": "Net::HTTP.new(URI.parse(\"https://localhost:#{server_port}/up\").host, URI.parse(\"https://localhost:#{server_port}/up\").port).verify_mode = OpenSSL::SSL::VERIFY_NONE",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Project",
+        "method": "app_alive?"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        295
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "5656303ed772000aec3bc79f82028b22867e4f02af41c206c69cef05dea4c8a1",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/project.rb",
+      "line": 94,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`docker ps -q --filter ancestor=#{docker_image_name}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Project",
+        "method": "docker_attach_command"
+      },
+      "user_input": "docker_image_name",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "f3de8c456b33385d0f06a841f16bfa8523bf9f7f50ce044cb8b7be4049f1def6",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/concerns/projects/docker_manageable.rb",
+      "line": 35,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`docker ps -q --filter ancestor=#{docker_image_name}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Projects::DockerManageable",
+        "method": "container_logs"
+      },
+      "user_input": "docker_image_name",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.0.0"
+}

@@ -1,0 +1,15 @@
+FROM ruby:3.3.6
+
+WORKDIR /usr/src/app
+
+# install git and docker client
+RUN apt-get update && apt-get install -y git docker.io
+
+# copy Gemfile to container
+COPY Gemfile ./
+
+# gems path
+ENV BUNDLE_PATH /gems
+
+# copy application dir to container
+COPY . .

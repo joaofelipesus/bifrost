@@ -1,0 +1,24 @@
+<section class="bg-gray-800 shadow-lg rounded-lg p-6">
+  <header class="flex justify-between items-center mb-4">
+    <h4 class="text-xl font-semibold text-white">Env variables</h4>
+
+    <%=
+      link_to "New env variable",
+      new_env_variable_path,
+      class: "table-link"
+    %>
+  </header>
+
+  <div class="flex flex-wrap">
+    <% project.env_variables.each do |env_var| %>
+      <div class="mb-4 w-1/2">
+        <label class="block text-gray-400 font-bold">
+          <%= "#{env_var.name}:" %>
+        </label>
+        <span class="text-gray-100">
+          <%= env_var.value %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</section>

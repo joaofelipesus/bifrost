@@ -1,0 +1,13 @@
+<nav class="bg-gray-800 p-4 flex items-center justify-between">
+  <div class="text-white font-bold text-xl">
+    <%= link_to "Bifrost", projects_path %>
+  </div>
+  <ul class="flex space-x-4">
+    <li>
+      <%= link_to "New project",
+        new_project_path,
+        class: "navbar-link"
+      %>
+    </li>
+  </ul>
+</nav>

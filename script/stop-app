@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo kill $(sudo lsof -i :3000 -t)

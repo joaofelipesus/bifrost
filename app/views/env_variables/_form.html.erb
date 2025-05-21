@@ -1,0 +1,36 @@
+<%= form_with(model: env_variable) do |form| %>
+  <% if env_variable.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(env_variable.errors.count, "error") %> prohibited this env_variable from being saved:</h2>
+
+      <ul>
+        <% env_variable.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :project_id, style: "display: block" %>
+    <%= form.select :project_id,
+      options_from_collection_for_select(@projects, :id, :name, @env_variable.project_id),
+      { include_blank: true },
+      { class: "input-field bg-white" }
+    %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name, class: "input-field" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :value, style: "display: block" %>
+    <%= form.text_area :value, class: "input-field" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "btn-primary" %>
+  </div>
+<% end %>
